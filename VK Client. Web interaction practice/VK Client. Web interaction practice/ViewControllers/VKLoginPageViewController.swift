@@ -12,6 +12,9 @@ import Alamofire
 
 class VKLoginPageViewController: UIViewController {
     
+    @IBOutlet weak var backGround: UIView!
+    
+    @IBOutlet weak var VKLabel: UILabel!
     
     @IBOutlet weak var webview: WKWebView! {
         didSet {
@@ -23,6 +26,11 @@ class VKLoginPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backGround.backgroundColor = #colorLiteral(red: 0.1722629964, green: 0.5988544822, blue: 0.9722792506, alpha: 1)
+        VKLabel.text = "VK"
+        VKLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        VKLabel.font = UIFont(name: "Arial-BoldMT", size: 32.0)
         
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"
@@ -68,11 +76,6 @@ extension VKLoginPageViewController: WKNavigationDelegate {
             saveUserInfo(receivedUserId: useridString,receivedToken: tokenString)}
         
         
-        let someToken = Singleton.shared.token
-        let someUserId = Singleton.shared.userId
-        print("For user \(someUserId). This is token: \(someToken)")
-        
-        
         decisionHandler(.cancel)
         toNextScreen()
     }
@@ -92,35 +95,6 @@ extension VKLoginPageViewController {
         performSegue(withIdentifier: "ToMainScreen", sender: nil)
     }
 }
-
-
-
-
-//extension VKLoginPageViewController{
-//
-//    func loadUrl(){
-//        let configuration = URLSessionConfiguration.default
-//        let session = URLSession(configuration: configuration)
-//        let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/photos.getAll")
-//
-//        urlComponents.scheme = apiAcess.schema
-//        urlComponents.host = apiAcess.host
-//        urlComponents.path = apiAcess.path + apiAcess.methodToPath
-//        urlComponents.queryItems = [
-//                                    URLQueryItem(name: "owner_id", value: Singleton.shared.userId),
-//                                    URLQueryItem(name: "access_token", value: Singleton.shared.token),
-//                                    URLQueryItem(name: "v", value: "5.131")]
-//
-//
-//        let task = session.dataTask(with: urlComponents.url!){data, response, error
-//            in
-//            let json = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-//            print (json)
-//        }
-//        task.resume()
-//    }
-//
-//}
 
 
 
