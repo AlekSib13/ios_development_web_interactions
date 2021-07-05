@@ -12,9 +12,9 @@ import Alamofire
 
 class VKLoginPageViewController: UIViewController {
     
-    @IBOutlet weak var backGround: UIView!
-    
-    @IBOutlet weak var VKLabel: UILabel!
+//    @IBOutlet weak var backGround: UIView!
+//
+//    @IBOutlet weak var VKLabel: UILabel!
     
     @IBOutlet weak var webview: WKWebView! {
         didSet {
@@ -27,10 +27,10 @@ class VKLoginPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backGround.backgroundColor = #colorLiteral(red: 0.1722629964, green: 0.5988544822, blue: 0.9722792506, alpha: 1)
-        VKLabel.text = "VK"
-        VKLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        VKLabel.font = UIFont(name: "Arial-BoldMT", size: 32.0)
+//        backGround.backgroundColor = #colorLiteral(red: 0.1722629964, green: 0.5988544822, blue: 0.9722792506, alpha: 1)
+//        VKLabel.text = "VK"
+//        VKLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+//        VKLabel.font = UIFont(name: "Arial-BoldMT", size: 32.0)
         
         urlComponents.scheme = "https"
         urlComponents.host = "oauth.vk.com"
