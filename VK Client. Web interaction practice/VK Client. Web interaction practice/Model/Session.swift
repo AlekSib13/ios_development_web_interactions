@@ -12,9 +12,13 @@ import Foundation
 class Singleton {
     static let shared = Singleton()
     
+    var session: URLSession!
     
     var token = ""
     var userId = ""
+    
+    var listOfUserFriends = [FriendDataSource]()
+    var listOfUserGroups = [GroupDataSource]()
     
     private init() {}
 }
