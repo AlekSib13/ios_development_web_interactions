@@ -20,6 +20,7 @@
 		EBC810DE2680FF1E0021CDE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC810DC2680FF1E0021CDE6 /* LaunchScreen.storyboard */; };
 		EBC810E7268101810021CDE6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC810E6268101810021CDE6 /* Session.swift */; };
 		EBEABAD4268AEB610087BCA5 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEABAD3268AEB610087BCA5 /* DataService.swift */; };
+		EBF007062693A0D9003A3B3B /* InitialCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF007052693A0D9003A3B3B /* InitialCoverViewController.swift */; };
 		EBF0BF02269067D8000FA1E8 /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF0BF01269067D8000FA1E8 /* Friends.swift */; };
 		EBF0BF052690909B000FA1E8 /* UserFriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF0BF042690909B000FA1E8 /* UserFriendsListViewController.swift */; };
 		EBF0BF07269090C1000FA1E8 /* UserGroupsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF0BF06269090C1000FA1E8 /* UserGroupsListViewController.swift */; };
@@ -43,6 +44,7 @@
 		EBC810DF2680FF1E0021CDE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBC810E6268101810021CDE6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		EBEABAD3268AEB610087BCA5 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		EBF007052693A0D9003A3B3B /* InitialCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InitialCoverViewController.swift; path = "VK Client. Web interaction practice/Cells/InitialCoverViewController.swift"; sourceTree = SOURCE_ROOT; };
 		EBF0BF01269067D8000FA1E8 /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
 		EBF0BF042690909B000FA1E8 /* UserFriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFriendsListViewController.swift; sourceTree = "<group>"; };
 		EBF0BF06269090C1000FA1E8 /* UserGroupsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroupsListViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		EBF0BF032690901B000FA1E8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EBF007052693A0D9003A3B3B /* InitialCoverViewController.swift */,
 				EB2765A0268644BD00C060EC /* VKLoginPageViewController.swift */,
 				EB1EEC6A268C3CC40083477D /* MainPageViewController.swift */,
 				EBF0BF042690909B000FA1E8 /* UserFriendsListViewController.swift */,
@@ -257,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBF007062693A0D9003A3B3B /* InitialCoverViewController.swift in Sources */,
 				EB2765A1268644BD00C060EC /* VKLoginPageViewController.swift in Sources */,
 				EB1EEC6B268C3CC40083477D /* MainPageViewController.swift in Sources */,
 				EBEABAD4268AEB610087BCA5 /* DataService.swift in Sources */,
