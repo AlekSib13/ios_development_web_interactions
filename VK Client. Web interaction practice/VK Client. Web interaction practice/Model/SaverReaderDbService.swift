@@ -39,16 +39,29 @@ class SaverReaderDbservice {
         do {try realm.commitWrite()} catch {print(error)}
     }
     
+//
+//    func retrieveFromDb (cellIdentifierName: String) throws -> Any {
+//        print(realm.configuration.fileURL)
+//
+//        if cellIdentifierName == "friendsListTableViewCellIdentifier" {
+//            let result = realm.objects(FriendPhotoRealm.self)
+//            return result
+//        } else if cellIdentifierName == "groupsListTableViewCellIdentifier"{
+//            let result = realm.objects(GroupPhotoRealm.self)
+//            return result
+//        } else {throw ReadErrors.noSuchCellIdentifier}
+//    }
+    
+    func retrieveFromDb (cellIdentifierName: String)  -> Any {
+        print(realm.configuration.fileURL)
 
-    func retrieveFromDb (cellIdentifierName: String) throws -> Any {
-        
         if cellIdentifierName == "friendsListTableViewCellIdentifier" {
-            let result = realm.objects(FriendRealm.self)
+            let result = realm.objects(FriendPhotoRealm.self)
             return result
         } else if cellIdentifierName == "groupsListTableViewCellIdentifier"{
-            let result = realm.objects(GroupRealm.self)
+            let result = realm.objects(GroupPhotoRealm.self)
             return result
-        } else {throw ReadErrors.noSuchCellIdentifier}
+        } else {return Any.self}
     }
 }
 

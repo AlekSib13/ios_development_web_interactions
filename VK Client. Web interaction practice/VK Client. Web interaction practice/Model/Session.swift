@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 
@@ -19,6 +20,9 @@ class Singleton {
     
     var listOfUserFriends = [FriendDataSource]()
     var listOfUserGroups = [GroupDataSource]()
+    
+    var listOfFriendsAvatars = [Int:UIImage?]()
+    var listOfGroupsAvatars = [Int:UIImage?]()
     
     
     private init() {}

@@ -10,6 +10,8 @@ import RealmSwift
 
 class UserFriendsListViewController: UIViewController, UITableViewDataSource {
     
+    var realmToken: NotificationToken?
+    
     @IBOutlet weak var friendsList: UITableView!
     let databaseService = SaverReaderDbservice()
     
@@ -36,16 +38,44 @@ class UserFriendsListViewController: UIViewController, UITableViewDataSource {
         guard let cellInfo = cell as? FriendsListAndGroupsListTableViewCell else {return UITableViewCell()}
         
         
-        do {
-            
-            let textResultFromDb = try databaseService.retrieveFromDb(cellIdentifierName: cellFriendsListIdentifier) as! Results<FriendRealm>
-            
-            cellInfo.configureCell(firstName: textResultFromDb[indexPath.row].firstName, lastName: textResultFromDb[indexPath.row].lastName, avatar: nil)
-            
-        } catch {error}
+      
+        guard let resultsFromDb = databaseService.retrieveFromDb(cellIdentifierName: cellFriendsListIdentifier) as? Results<FriendPhotoRealm> else {return UITableViewCell()}
+        
+        
+        cellInfo.configureCell(firstName: resultsFromDb[indexPath.row].friendId?.firstName, lastName: resultsFromDb[indexPath.row].friendId?.lastName, avatar: retrieveAvatar(photoReference: resultsFromDb[indexPath.row].photoReference))
+        
+        
+        realmToken = resultsFromDb.observe{[weak self](changes: RealmCollectionChange) in
+            guard let friendsList = self?.friendsList else{return}
+            switch changes{
+            case .initial:
+                friendsList.reloadData()
+            case .update(_, let delition, let insertion, let modification):
+                friendsList.beginUpdates()
+                friendsList.deleteRows(at: delition.map({IndexPath(row: $0, section: $0)}), with: .automatic)
+                friendsList.insertRows(at: insertion.map({IndexPath(row: $0, section: $0)}), with: .automatic)
+                friendsList.reloadRows(at: modification.map({IndexPath(row: $0, section: $0)}), with: .automatic)
+                friendsList.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+        
         return cellInfo
     }
 }
+
+extension UserFriendsListViewController {
+    func retrieveAvatar(photoReference: String?) -> UIImage? {
+        
+        guard let photoReferenceString = photoReference, let urlLink = URL(string: photoReferenceString) else {return nil}
+        
+        let dataImage = try? Data(contentsOf: urlLink)
+        let avatar = UIImage(data: dataImage!)
+        return avatar
+    }
+}
+
 
 
 

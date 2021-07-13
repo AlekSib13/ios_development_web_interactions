@@ -55,24 +55,10 @@ class MainPageViewController: UIViewController {
         }
         
         
-        
-//        launchTestData(){personTestMessage in
-//            do {
-//                let realmConfig = Realm.Configuration(schemaVersion: 1)
-////                lazy var realm = try! Realm(configuration: realmConfig)
-////                Realm.Configuration.defaultConfiguration = realmNewConfig
-//                let realm = try Realm(configuration: realmConfig)
-//                realm.beginWrite()
-//                try realm.commitWrite()
-//                print("Realm link \(realm.configuration.fileURL)")
-//            } catch {print ("Realm error: \(error)")}
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        print(Singleton.shared.listOfUserGroups)
-//        print(listOfRealmObjects)
         databaseService.saveToDb(listOfObjects: listOfRealmObjects)
     }
 }
@@ -204,12 +190,6 @@ extension MainPageViewController {
 
 extension MainPageViewController {
     func launchTestData(completionHandler: (MessageRealm) -> Void) -> Void {
-//        let person = SomeTestEntity()
-//        person.name = "Jake"
-//        person.age = 30
-//        person.gender = true
-//        person.petName = "no pet"
-//        completionHandler(person)
         
         let messageFromPerson = MessageRealm()
         messageFromPerson.messageId = 0
