@@ -11,10 +11,6 @@ import WebKit
 
 class VKLoginPageViewController: UIViewController {
     
-//    @IBOutlet weak var backGround: UIView!
-//
-//    @IBOutlet weak var VKLabel: UILabel!
-    
     @IBOutlet weak var webview: WKWebView! {
         didSet {
             webview.navigationDelegate = self

@@ -10,27 +10,25 @@ import UIKit
 import RealmSwift
 
 
-// Не забыть написать написать оверрайд статик функ праймери ки
+// MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
 
-
-
-protocol GroupDataSource {
-    var id: UInt {get}
-    var name: String {get}
-    var avatar: UIImage? {get}
-}
-
-class Group: GroupDataSource {
-    let id: UInt
-    var name: String
-    var avatar: UIImage?
-    
-    init(id: UInt, name: String, avatar: UIImage?) {
-        self.id = id
-        self.name = name
-        self.avatar = avatar
-    }
-}
+//protocol GroupDataSource {
+//    var id: UInt {get}
+//    var name: String {get}
+//    var avatar: UIImage? {get}
+//}
+//
+//class Group: GroupDataSource {
+//    let id: UInt
+//    var name: String
+//    var avatar: UIImage?
+//
+//    init(id: UInt, name: String, avatar: UIImage?) {
+//        self.id = id
+//        self.name = name
+//        self.avatar = avatar
+//    }
+//}
 
 
 

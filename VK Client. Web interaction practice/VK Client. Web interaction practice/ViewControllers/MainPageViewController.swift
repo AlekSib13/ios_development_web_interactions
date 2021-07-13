@@ -23,6 +23,42 @@ class MainPageViewController: UIViewController {
         
         Singleton.shared.session = URLSession(configuration: configuration)
         
+        //MARK: the code of getting data from API was moved to the viewWillAppear method in order to recieve updates of groups and friends information each time a user switches to his main screen
+//        let session = Singleton.shared.session!
+        
+//        loadFriendsList(session: session){
+//            let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/friends.get")
+//            urlComponents.scheme = apiAcess.schema
+//            urlComponents.host = apiAcess.host
+//            urlComponents.path = apiAcess.path + apiAcess.methodToPath
+//            urlComponents.queryItems = [
+//                URLQueryItem(name: "owner_id", value: Singleton.shared.userId),
+//                URLQueryItem(name: "fields", value: "nickname,domain,sex,bdate,city,photo_50,photo_100"),
+//                URLQueryItem(name: "access_token", value: Singleton.shared.token),
+//                URLQueryItem(name: "v", value: "5.131")]
+//            let url = urlComponents.url!
+//            return url
+//        }
+//
+//
+//        loadGroupsInfo(session: session){
+//            let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/groups.get")
+//            urlComponents.scheme = apiAcess.schema
+//            urlComponents.host = apiAcess.host
+//            urlComponents.path = apiAcess.path + apiAcess.methodToPath
+//            urlComponents.queryItems = [
+//                URLQueryItem(name: "owner_id", value: Singleton.shared.userId),
+//                URLQueryItem(name: "extended", value: "1"),
+//                URLQueryItem(name: "access_token", value: Singleton.shared.token),
+//                URLQueryItem(name: "v", value: "5.131")]
+//            let url = urlComponents.url!
+//            return url
+//        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         let session = Singleton.shared.session!
         
         loadFriendsList(session: session){
@@ -54,12 +90,13 @@ class MainPageViewController: UIViewController {
             return url
         }
         
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         databaseService.saveToDb(listOfObjects: listOfRealmObjects)
+        
+        
     }
 }
 
@@ -91,7 +128,8 @@ extension MainPageViewController {
                                 if let image = dataImage {
                                     let avatarImage = UIImage(data: image)
                                     
-                                    Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: avatarImage))
+                                    // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                                    Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: avatarImage))
                                     
                                     self.listOfRealmObjects.append(GroupRealm(id: Int(exactly: id)!, name: name))
                                     
@@ -99,7 +137,8 @@ extension MainPageViewController {
                                     
                                 }
                             } else {
-                                Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: nil))
+                                // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                                Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: nil))
                                 
                                 self.listOfRealmObjects.append(GroupRealm(id: Int(exactly: id)!, name: name))
                                 
@@ -108,7 +147,9 @@ extension MainPageViewController {
                         }
                         imageDownloadTask.resume()
                     } else
-                    {Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: nil))
+                    {
+                        // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                        Singleton.shared.listOfUserGroups.append(Group(id: id, name: name, avatar: nil))
                         
                         self.listOfRealmObjects.append(GroupRealm(id: Int(exactly: id)!, name: name))
                         
@@ -154,7 +195,8 @@ extension MainPageViewController {
                                 if let image = dataImage {
                                     let avatarImage = UIImage(data: image)
                                     
-                                    Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: avatarImage, birthday: birthday, sex: sex))
+                                    // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                                    Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: avatarImage, birthday: birthday, sex: sex))
                                     
                                     self.listOfRealmObjects.append(FriendRealm.init(id: Int(exactly: id)!, firstName: firstName, lastName: lastName))
                                     
@@ -162,7 +204,8 @@ extension MainPageViewController {
                                     
                                 }
                             } else {
-                                Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: nil, birthday: birthday, sex: sex))
+                                // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                                Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: nil, birthday: birthday, sex: sex))
                                 
                                 self.listOfRealmObjects.append(FriendRealm.init(id: Int(exactly: id)!, firstName: firstName, lastName: lastName))
                                 
@@ -171,7 +214,9 @@ extension MainPageViewController {
                         }
                         imageDownloadTask.resume()
                     } else
-                    {Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: nil, birthday: birthday, sex: sex))
+                    {
+                        // MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//                        Singleton.shared.listOfUserFriends.append(Friend(id: id, firstName: firstName, lastName: lastName, avatar: nil, birthday: birthday, sex: sex))
                         
                         self.listOfRealmObjects.append(FriendRealm.init(id: Int(exactly: id)!, firstName: firstName, lastName: lastName))
                         

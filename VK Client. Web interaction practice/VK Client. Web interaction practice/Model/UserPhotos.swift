@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 
+//MARK: The template of the Message class. The template is not finished yet and the class is not ready for usage yet
 protocol UserPhotoDataSourceRealm {
     var photoReference: String? {get}
     var userId: UserRealm? {get}

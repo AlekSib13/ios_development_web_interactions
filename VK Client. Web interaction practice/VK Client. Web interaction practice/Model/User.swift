@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 
-// Не забыть написать написать оверрайд статик функ праймери ки
+//MARK: The template of the Message class. The template is not finished yet and the class is not ready for usage yet
 
 protocol UserDataSourceRealm {
     var id: Int {get}

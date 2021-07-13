@@ -28,7 +28,9 @@ class UserFriendsListViewController: UIViewController, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Singleton.shared.listOfUserFriends.count
+//        Singleton.shared.listOfUserFriends.count
+        guard let resultsFromDb = databaseService.retrieveFromDb(cellIdentifierName: cellFriendsListIdentifier) as? Results<FriendPhotoRealm> else {return 0}
+        return resultsFromDb.count
     }
     
     
@@ -45,25 +47,15 @@ class UserFriendsListViewController: UIViewController, UITableViewDataSource {
         cellInfo.configureCell(firstName: resultsFromDb[indexPath.row].friendId?.firstName, lastName: resultsFromDb[indexPath.row].friendId?.lastName, avatar: retrieveAvatar(photoReference: resultsFromDb[indexPath.row].photoReference))
         
         
-        realmToken = resultsFromDb.observe{[weak self](changes: RealmCollectionChange) in
-            guard let friendsList = self?.friendsList else{return}
-            switch changes{
-            case .initial:
-                friendsList.reloadData()
-            case .update(_, let delition, let insertion, let modification):
-                friendsList.beginUpdates()
-                friendsList.deleteRows(at: delition.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                friendsList.insertRows(at: insertion.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                friendsList.reloadRows(at: modification.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                friendsList.endUpdates()
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
-        
         return cellInfo
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateTableInfo()
+    }
 }
+
 
 extension UserFriendsListViewController {
     func retrieveAvatar(photoReference: String?) -> UIImage? {
@@ -75,6 +67,34 @@ extension UserFriendsListViewController {
         return avatar
     }
 }
+
+
+
+extension UserFriendsListViewController  {
+    
+    func updateTableInfo(){
+        
+        guard let resultsFromDb = databaseService.retrieveFromDb(cellIdentifierName: cellFriendsListIdentifier) as? Results<FriendPhotoRealm> else {return}
+        
+        
+        realmToken = resultsFromDb.observe{[weak self](changes: RealmCollectionChange) in
+            guard let friendsList = self?.friendsList else {return}
+            switch changes {
+            case .initial:
+                friendsList.reloadData()
+            case .update(_, let deletion, let insertion, let modification):
+                friendsList.beginUpdates()
+                friendsList.deleteRows(at: deletion.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                friendsList.insertRows(at: insertion.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                friendsList.reloadRows(at: modification.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                friendsList.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+}
+
 
 
 

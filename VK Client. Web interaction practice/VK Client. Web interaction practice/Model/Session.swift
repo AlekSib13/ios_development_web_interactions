@@ -18,8 +18,9 @@ class Singleton {
     var token = ""
     var userId = ""
     
-    var listOfUserFriends = [FriendDataSource]()
-    var listOfUserGroups = [GroupDataSource]()
+// MARK: Part of the code, which referes to the previous versions of the app. This code will be withdrawn later
+//    var listOfUserFriends = [FriendDataSource]()
+//    var listOfUserGroups = [GroupDataSource]()
     
     var listOfFriendsAvatars = [Int:UIImage?]()
     var listOfGroupsAvatars = [Int:UIImage?]()

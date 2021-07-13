@@ -28,7 +28,9 @@ class UserGroupsListViewController: UIViewController,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Singleton.shared.listOfUserGroups.count
+//        Singleton.shared.listOfUserGroups.count
+        guard let resultsFromDb = databaseService.retrieveFromDb(cellIdentifierName: cellGroupsListIdentifier) as? Results<GroupPhotoRealm> else {return 0}
+        return resultsFromDb.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,26 +46,15 @@ class UserGroupsListViewController: UIViewController,UITableViewDataSource {
 
         cellInfo.configureCell(firstName: resultsFromDb[indexPath.row].groupId?.name, lastName: nil, avatar: retrieveAvatar(photoReference: resultsFromDb[indexPath.row].photoReference))
         
-        realmToken = resultsFromDb.observe{[weak self](changes: RealmCollectionChange) in
-            guard let groupList = self?.groupsList else {return}
-            switch changes {
-            case .initial:
-                groupList.reloadData()
-            case .update(_, let deletion, let insertion, let modification):
-                groupList.beginUpdates()
-                groupList.deleteRows(at: deletion.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                groupList.insertRows(at: insertion.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                groupList.reloadRows(at: modification.map({IndexPath(row: $0, section: $0)}), with: .automatic)
-                groupList.endUpdates()
-            case .error(let error):
-                fatalError("\(error)")
-            }
-        }
-        
-        
         
         return cellInfo
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateTableInfo()
+    }
+    
 }
 
 
@@ -79,5 +70,30 @@ extension UserGroupsListViewController {
     }
 }
 
+
+extension UserGroupsListViewController {
+    
+    func updateTableInfo(){
+        
+        guard let resultsFromDb = databaseService.retrieveFromDb(cellIdentifierName: cellGroupsListIdentifier) as? Results<GroupPhotoRealm> else {return}
+        
+        
+        realmToken = resultsFromDb.observe{[weak self](changes: RealmCollectionChange) in
+            guard let groupList = self?.groupsList else {return}
+            switch changes {
+            case .initial:
+                groupList.reloadData()
+            case .update(_, let deletion, let insertion, let modification):
+                groupList.beginUpdates()
+                groupList.deleteRows(at: deletion.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                groupList.insertRows(at: insertion.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                groupList.reloadRows(at: modification.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                groupList.endUpdates()
+            case .error(let error):
+                fatalError("\(error)")
+            }
+        }
+    }
+}
 
 
