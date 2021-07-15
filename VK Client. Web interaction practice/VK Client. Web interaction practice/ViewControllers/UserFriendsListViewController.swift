@@ -22,6 +22,7 @@ class UserFriendsListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         
+        
         friendsList.dataSource = self
         friendsList.register(UINib(nibName: "FriendsListAndGroupsListTableViewCell", bundle: nil), forCellReuseIdentifier: cellFriendsListIdentifier)
     }

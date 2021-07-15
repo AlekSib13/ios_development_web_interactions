@@ -64,6 +64,9 @@ extension VKLoginPageViewController: WKNavigationDelegate {
         let token = params["access_token"]
         let userid = params["user_id"]
         
+        saveDataToUserDefaults(receivedUserId: userid)
+        
+        
         
         if let tokenString = token, let useridString = userid {
             saveUserInfo(receivedUserId: useridString,receivedToken: tokenString)}
@@ -86,6 +89,20 @@ extension VKLoginPageViewController {
 extension VKLoginPageViewController {
     func toNextScreen(){
         performSegue(withIdentifier: "ToMainScreen", sender: nil)
+    }
+}
+
+extension VKLoginPageViewController {
+    func saveDataToUserDefaults(receivedUserId: String?){
+       
+        guard let newUserId = receivedUserId else {return}
+        
+        if let userId = UserDefaults.standard.string(forKey: "user_id"), newUserId != userId {
+            UserDefaults.standard.set(newUserId, forKey: "user_id")
+            UserDefaults.standard.set(true, forKey: "new_user")
+            return} else {
+                return
+            }
     }
 }
 

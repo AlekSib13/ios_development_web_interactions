@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8C34E9EB35C91CFCAC3ABE9A /* Pods_VK_Client__Web_interaction_practice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509F00FDC6CF36AB82ED69FE /* Pods_VK_Client__Web_interaction_practice.framework */; };
 		EB1EEC6B268C3CC40083477D /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1EEC6A268C3CC40083477D /* MainPageViewController.swift */; };
+		EB20C3CB269E9DD300A204E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB20C3CA269E9DD300A204E7 /* GoogleService-Info.plist */; };
 		EB2765A1268644BD00C060EC /* VKLoginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2765A0268644BD00C060EC /* VKLoginPageViewController.swift */; };
 		EB692BFA268EE23E0070636D /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB692BF9268EE23E0070636D /* Groups.swift */; };
 		EB693AE92694EB170002D374 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB693AE82694EB170002D374 /* User.swift */; };
@@ -37,6 +38,7 @@
 		509F00FDC6CF36AB82ED69FE /* Pods_VK_Client__Web_interaction_practice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VK_Client__Web_interaction_practice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		581A99A2F12643E04E2AF716 /* Pods-VK Client. Web interaction practice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK Client. Web interaction practice.debug.xcconfig"; path = "Target Support Files/Pods-VK Client. Web interaction practice/Pods-VK Client. Web interaction practice.debug.xcconfig"; sourceTree = "<group>"; };
 		EB1EEC6A268C3CC40083477D /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
+		EB20C3CA269E9DD300A204E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB2765A0268644BD00C060EC /* VKLoginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKLoginPageViewController.swift; sourceTree = "<group>"; };
 		EB692BF9268EE23E0070636D /* Groups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
 		EB693AE82694EB170002D374 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				EBC810DA2680FF1E0021CDE6 /* Assets.xcassets */,
 				EBC810DC2680FF1E0021CDE6 /* LaunchScreen.storyboard */,
 				EBC810DF2680FF1E0021CDE6 /* Info.plist */,
+				EB20C3CA269E9DD300A204E7 /* GoogleService-Info.plist */,
 			);
 			path = "VK Client. Web interaction practice";
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			files = (
 				EBC810DE2680FF1E0021CDE6 /* LaunchScreen.storyboard in Resources */,
 				EBC810DB2680FF1E0021CDE6 /* Assets.xcassets in Resources */,
+				EB20C3CB269E9DD300A204E7 /* GoogleService-Info.plist in Resources */,
 				EBC810D92680FF1A0021CDE6 /* Main.storyboard in Resources */,
 				EB932EC02691971A00382D14 /* FriendsListAndGroupsListTableViewCell.xib in Resources */,
 			);

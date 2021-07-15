@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import Firebase
 
 class MainPageViewController: UIViewController {
     
@@ -17,49 +18,20 @@ class MainPageViewController: UIViewController {
     var listOfRealmObjects = [AnyObject]()
 
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Singleton.shared.session = URLSession(configuration: configuration)
-        
-        //MARK: the code of getting data from API was moved to the viewWillAppear method in order to recieve updates of groups and friends information each time a user switches to his main screen
-//        let session = Singleton.shared.session!
-        
-//        loadFriendsList(session: session){
-//            let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/friends.get")
-//            urlComponents.scheme = apiAcess.schema
-//            urlComponents.host = apiAcess.host
-//            urlComponents.path = apiAcess.path + apiAcess.methodToPath
-//            urlComponents.queryItems = [
-//                URLQueryItem(name: "owner_id", value: Singleton.shared.userId),
-//                URLQueryItem(name: "fields", value: "nickname,domain,sex,bdate,city,photo_50,photo_100"),
-//                URLQueryItem(name: "access_token", value: Singleton.shared.token),
-//                URLQueryItem(name: "v", value: "5.131")]
-//            let url = urlComponents.url!
-//            return url
-//        }
-//
-//
-//        loadGroupsInfo(session: session){
-//            let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/groups.get")
-//            urlComponents.scheme = apiAcess.schema
-//            urlComponents.host = apiAcess.host
-//            urlComponents.path = apiAcess.path + apiAcess.methodToPath
-//            urlComponents.queryItems = [
-//                URLQueryItem(name: "owner_id", value: Singleton.shared.userId),
-//                URLQueryItem(name: "extended", value: "1"),
-//                URLQueryItem(name: "access_token", value: Singleton.shared.token),
-//                URLQueryItem(name: "v", value: "5.131")]
-//            let url = urlComponents.url!
-//            return url
-//        }
+        checkForUserEmail()
+       
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let session = Singleton.shared.session!
+        
+        enterFireBase()
         
         loadFriendsList(session: session){
             let apiAcess = VKApiServiceParams(schema: "https", host: "api.vk.com", path: "/method",methodToPath: "/friends.get")
@@ -95,8 +67,7 @@ class MainPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         databaseService.saveToDb(listOfObjects: listOfRealmObjects)
-        
-        
+
     }
 }
 
@@ -232,15 +203,48 @@ extension MainPageViewController {
 
 
 
-
-extension MainPageViewController {
-    func launchTestData(completionHandler: (MessageRealm) -> Void) -> Void {
-        
-        let messageFromPerson = MessageRealm()
-        messageFromPerson.messageId = 0
-        messageFromPerson.friendId = 1
-        messageFromPerson.messageBody = "Some other test message"
-        completionHandler(messageFromPerson)
+extension MainPageViewController{
+    func checkForUserEmail() -> () {
+        if let user_email = UserDefaults.standard.object(forKey: "user_email") as? String, UserDefaults.standard.bool(forKey: "new_user") == false {
+            
+            print("User id: \(UserDefaults.standard.string(forKey: "user_id")), User email \(UserDefaults.standard.string(forKey: "user_email"))")
+            return}
+        else {
+            let alertEmailInsertion = UIAlertController(title: "Email required", message: "The last step: please, enter your email or accessability of the data is not guaranteed.", preferredStyle: .alert)
+            alertEmailInsertion.addTextField{emailTextField in emailTextField.placeholder = "email"}
+            
+            let insertionButton = UIAlertAction(title: "Done", style: .default){_ in
+                if let email = alertEmailInsertion.textFields![0].text, email.contains("@") {
+                    UserDefaults.standard.set(email, forKey: "user_email")
+                    UserDefaults.standard.set(false, forKey: "new_user")
+                } else {
+                    let alertEmailIsNotSupported = UIAlertController(title: "Email is not suppoerted", message: "Try once again?", preferredStyle: .actionSheet)
+                    
+                    let emailNewAttempt = UIAlertAction(title: "Retry", style: .default){[weak self] _ in
+                        self?.checkForUserEmail()}
+                    
+                    alertEmailIsNotSupported.addAction(emailNewAttempt)
+                    self.present(alertEmailIsNotSupported, animated: true, completion: nil)
+                }
+                
+            }
+            alertEmailInsertion.addAction(insertionButton)
+            self.present(alertEmailInsertion, animated: true, completion: {print("completed")})
+        }
     }
 }
 
+
+extension MainPageViewController {
+    func enterFireBase(){
+        Auth.auth().signIn(withEmail: UserDefaults.standard.string(forKey: "user_email")!, password: UserDefaults.standard.string(forKey: "user_id")!){loginResult, loginError in
+            if loginError != nil {
+                Auth.auth().createUser(withEmail: UserDefaults.standard.string(forKey: "user_email")!, password: UserDefaults.standard.string(forKey: "user_id")!){
+                    userCreationResult, userCreationError in
+                    if userCreationError != nil {print(userCreationError?.localizedDescription ?? "User can't be created")} else {self.enterFireBase()}
+                }
+                }
+             else {print("Success: \(loginResult)")}
+        }
+    }
+}

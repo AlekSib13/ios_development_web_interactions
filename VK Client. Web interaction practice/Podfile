@@ -6,6 +6,10 @@ target 'VK Client. Web interaction practice' do
   use_frameworks!
 
   pod 'RealmSwift'
+  
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
 
   # Pods for VK Client. Web interaction practice
